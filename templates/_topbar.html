@@ -1,0 +1,23 @@
+<header class="topbar">
+    <a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">SR</span> Smart Roster</a>
+    <nav>
+        {% if current_user and current_user.role == 'company' %}
+            <a class="{% if request.endpoint == 'company_portal' %}active{% endif %}" href="{{ url_for('company_portal') }}">Company work</a>
+        {% else %}
+            <a class="{% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">Dashboard</a>
+            <a class="{% if request.endpoint == 'roster' %}active{% endif %}" href="{{ url_for('roster') }}">Roster</a>
+            <a class="{% if request.endpoint == 'calendar_view' %}active{% endif %}" href="{{ url_for('calendar_view') }}">Calendar</a>
+            <a class="{% if request.endpoint == 'my_work' %}active{% endif %}" href="{{ url_for('my_work') }}">My work</a>
+        {% endif %}
+        {% if current_user and current_user.role in ['manager', 'pod_lead'] %}
+            <a class="{% if request.endpoint == 'employees' %}active{% endif %}" href="{{ url_for('employees') }}">Employees</a>
+            <a class="{% if request.endpoint == 'views' %}active{% endif %}" href="{{ url_for('views') }}">Views</a>
+        {% endif %}
+        {% if current_user and current_user.role == 'manager' %}
+            <a class="{% if request.endpoint == 'manage' %}active{% endif %}" href="{{ url_for('manage') }}">Manage</a>
+            <a class="{% if request.endpoint == 'rules' %}active{% endif %}" href="{{ url_for('rules') }}">Rules</a>
+        {% endif %}
+        <a href="{{ url_for('logout') }}">Sign out</a>
+    </nav>
+    {% if current_user %}<span class="user-chip">{{ current_user.full_name or current_user.username }} · {{ current_user.role|replace('_', ' ')|title }}</span>{% endif %}
+</header>

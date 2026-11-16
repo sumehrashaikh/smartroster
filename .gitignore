@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.sqlite
+*.sqlite3
+smart_roster.db
+.env
+.venv/
+venv/
+.idea/
+.vscode/
+instance/
+*.log

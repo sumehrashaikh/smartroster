@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Roster | Employees</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% include '_topbar.html' %}
+    <main class="page-shell">
+        <section class="page-heading"><div><p class="eyebrow">People directory</p><h1>Employees</h1><p class="hero-copy">Browse each employee's pod, weekly off and current assignment.</p></div><a class="button secondary" href="{{ url_for('home') }}">← Dashboard</a></section>
+        <section class="panel"><form class="searchbar" method="get"><input type="search" name="search" value="{{ search }}" placeholder="Search by name, code or pod..."><button class="button primary" type="submit">Search</button>{% if search %}<a href="{{ url_for('employees') }}">Clear</a>{% endif %}</form>
+            <div class="table-wrap"><table><thead><tr><th>Employee</th><th>Login ID</th><th>Email</th><th>Pod</th><th>Weekly off</th><th>Assignment</th></tr></thead><tbody>
+                {% for row in employees %}<tr><td><strong>{{ row.full_name }}</strong><small>{{ row.employee_code }}</small></td><td><span class="tag">{{ row.login_id or 'Not created' }}</span></td><td>{{ row.email }}</td><td>{{ row.pod_name }}<small>Lead: {{ row.leader_name }}</small></td><td>{{ row.weekly_off }}</td><td><span class="tag">{{ row.brand_name }}</span><small>{{ row.process_name }}</small></td></tr>{% else %}<tr><td colspan="6" class="empty">No employees found.</td></tr>{% endfor %}
+            </tbody></table></div>
+        </section>
+    </main>
+</body>
+</html>

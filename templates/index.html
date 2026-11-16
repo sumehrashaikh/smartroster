@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Roster | Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% include '_topbar.html' %}
+    <main class="page-shell">
+        <section class="hero"><div><p class="eyebrow">Operations workspace</p><h1>Good morning, manager.</h1><p class="hero-copy">A clear view of your people, teams and assignments.</p></div><a class="button primary" href="{{ url_for('employees') }}">View employees</a></section>
+        <section class="stats-grid" aria-label="Roster summary">
+            <div class="stat-card"><span class="stat-icon blue">◎</span><div><p>Active employees</p><strong>{{ stats.employees }}</strong></div></div>
+            <div class="stat-card"><span class="stat-icon purple">◆</span><div><p>Brands</p><strong>{{ stats.brands }}</strong></div></div>
+            <div class="stat-card"><span class="stat-icon orange">◈</span><div><p>Processes</p><strong>{{ stats.processes }}</strong></div></div>
+            <div class="stat-card"><span class="stat-icon green">▦</span><div><p>Pods</p><strong>{{ stats.pods }}</strong></div></div>
+        </section>
+        <section class="content-grid">
+            <div class="panel wide-panel"><div class="panel-heading"><div><p class="eyebrow">Live data</p><h2>Current assignments</h2></div><a href="{{ url_for('employees') }}">See all →</a></div>
+                <div class="table-wrap"><table><thead><tr><th>Employee</th><th>Pod</th><th>Brand</th><th>Process</th></tr></thead><tbody>
+                    {% for row in assignments %}<tr><td><strong>{{ row.full_name }}</strong><small>{{ row.employee_code }}</small></td><td>{{ row.pod_name }}</td><td>{{ row.brand_name }}</td><td><span class="tag">{{ row.process_name }}</span></td></tr>{% endfor %}
+                </tbody></table></div>
+            </div>
+            <aside class="panel next-panel"><p class="eyebrow">Scheduling</p><h2>Generate a roster</h2><p>Choose a month and create a first-pass schedule based on weekly offs.</p><a class="button secondary" href="{{ url_for('roster') }}">Open roster →</a></aside>
+        </section>
+    </main>
+</body>
+</html>
